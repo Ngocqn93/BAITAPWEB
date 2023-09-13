@@ -1,0 +1,100 @@
+﻿@model IEnumerable<BAITAPWEB.Models.DanhSach.ModelDanhSach>
+@*@model BAIOTAPWEB.Models.DanhSach.ModelDanhSach*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="d-flex flex-row justify-content-between gap-3">
+        <div class="col-7 border-1 rounded-3 shadow-lg px-5" style="height: 680px;">
+            <h2 class="fw-bold text-center pt-5 pb-4">Danh sách sản phẩm</h2>
+            <hr />
+            <div style="max-height: 360px; overflow-y: auto;" class="px-3">
+                <table class="table table-striped overflow-scroll">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col" class="text-end">Tạm tính</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <td class="text-center">@i</td>
+                                    <td class="text-center">@item.TenSanPham</td>
+                                    <td class="text-center">@item.SoLuong</td>
+                                    <td class="text-center">@item.DonGia.ToString("N0")</td>
+                                    <td class="text-end">@item.TamTinh.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center">Không có dữ liệu</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr />
+            @if (Model != null)
+            {
+                @*double tongCong = 0;
+            foreach (var item in Model)
+            {
+            tongCong += item.TamTinh;
+            }*@
+                <div class="d-flex flex-column text-end">
+                    @*<p class="fw-bold float-end px-3" id="TongThanhTien">Tổng thành tiền: @tongCong.ToString("N0") đồng</p>*@
+                    <p class="fw-bold float-end px-3" id="TongThanhTien">Tổng thành tiền: @Model.Sum(c => c.TamTinh).ToString("N0") đồng</p>
+                </div>
+            }
+            else
+            {
+                <div class="d-flex flex-column text-end">
+                    <p class="fw-bold float-end px-3">Tổng cộng: 0 đồng</p>
+                </div>
+            }
+        </div>
+        <div class="col-5 px-5 pt-5 border rounded-3 shadow-lg">
+            <h2 class="text-center fw-bold pb-4">Thông tin sản phẩm</h2>
+            <hr />
+            <form action="/DanhSach" method="post">
+                <div class="mb-4">
+                    <label for="tensanpham" class="form-label fw-bolder">Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="tensanpham" name="tensanpham" value="" aria-describedby="text">
+                </div>
+                <div class="mb-4">
+                    <label for="soluong" class="form-label fw-bolder">Số lượng</label>
+                    <input type="number" class="form-control" id="soluong" name="soluong" value="" aria-describedby="text">
+                </div>
+                <div class="mb-5">
+                    <label for="dongia" class="form-label fw-bolder">Đơn giá bán</label>
+                    <input type="number" class="form-control" id="dongia" name="dongia" value="" aria-describedby="text">
+                </div>
+                <hr />
+                <div class="d-flex align-items-center justify-content-center my-5 gap-5">
+                    <button type="submit" id="themgiohang" class="btn btn-primary px-4 py-2">Thêm vào giỏ hàng</button>
+                    <a type="button" id="thanhtoan" class="btn btn-outline-warning px-4 py-2" href="@Url.Action("Index","DanhSach", new { check = true})" onclick="HienThiThongBao()">Thanh toán</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function HienThiThongBao() {
+        var message = $('#TongThanhTien').text()
+        alert(message)
+    }
+</script>
+

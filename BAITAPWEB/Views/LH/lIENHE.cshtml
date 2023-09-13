@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "LIÊN HỆ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-5 border rounded-3 shadow-lg p-4">
+            <h2 class="fw-bold text-center mb-4">THÔNG TIN HỌC VIÊN</h2>
+            <style>              
+                .col-5 h2 {
+                    text-decoration: none !important;
+                }
+            </style>
+            <hr />
+            <form action="/LIENHE" method="post">
+                <div class="mb-3">
+                    <label for="hoten" class="form-label fw-bolder">Họ và tên</label>
+                    <input type="text" class="form-control" id="hoten" name="hoten" value="Nguyễn Văn A" aria-describedby="text" readonly style="max-width: 100%;">
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label fw-bolder">Ngày tháng năm sinh</label>
+                    <input type="text" class="form-control" id="date" name="date" value="16/09/1993" aria-describedby="text" readonly style="max-width: 100%;">
+                </div>
+                <div class="mb-4">
+                    <label for="diachi" class="form-label fw-bolder">Email</label>
+                    <input type="text" class="form-control" id="daichi" name="diachi" value="ngocqn93@gmail.com" aria-describedby="text" readonly style="max-width: 100%;">
+                </div>
+                <div class="mb-5">
+                    <label for="sdt" class="form-label fw-bolder">Số điện thoại</label>
+                    <input type="text" class="form-control" id="sdt" name="sdt" value="0906913901" aria-describedby="text" readonly style="max-width: 100%;">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
